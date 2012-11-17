@@ -1,0 +1,18 @@
+{application, quick_chat, [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {modules, [
+    quick_chat_app,
+    quick_chat_sup,
+    quick_chat_server
+  ]},
+  {applications, [
+    kernel,
+    stdlib
+  ]},
+  {mod, {
+    quick_chat_app, []
+  }},
+  {env, []}
+]}.
