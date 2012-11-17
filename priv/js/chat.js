@@ -1,7 +1,7 @@
 (function() {
 
   window.App = Ember.Application.create({
-    socketUrl: "ws://0.0.0.0:8765",
+    socketUrl: "ws://0.0.0.0:10100",
     ready: function() {
       return console.log("Ember namespace is ok");
     },

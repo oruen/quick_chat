@@ -25,6 +25,14 @@ start(_StartType, _StartArgs) ->
     {ok, _} = cowboy:start_http(http, 100, [{port, 8080}], [
       {dispatch, Dispatch}
     ]),
+    WsDispatch = [
+      {'_', [
+        {'_', quick_chat_ws_handler, []}
+      ]}
+    ],
+    {ok, _} = cowboy:start_http(quick_chat_websocket, 100, [{port, 10100}], [
+      {dispatch, WsDispatch}
+    ]),
     quick_chat_sup:start_link().
 
 stop(_State) ->
