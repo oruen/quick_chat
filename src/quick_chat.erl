@@ -13,6 +13,7 @@ start() ->
     ok = application:start(crypto),
     ok = application:start(ranch),
     ok = application:start(cowboy),
+    ok = application:start(gproc),
     ok = application:start(quick_chat).
 
 stop() ->

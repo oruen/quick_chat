@@ -8,25 +8,33 @@ init({tcp, http}, _Req, _Opts) ->
     {upgrade, protocol, cowboy_websocket}.
 
 websocket_init(_TransportName, Req, _Opts) ->
-    %erlang:start_timer(1000, self(), <<"Hello!">>),
     S = #userinfo{login=false},
     {ok, Req, S}.
 
 websocket_handle({text, Msg}, Req, State) when State#userinfo.login==false ->
     Login = erlang:list_to_binary(string:substr(erlang:binary_to_list(Msg), 7)),
     State1 = State#userinfo{login=Login},
+    gproc:send({p, l, ?WSKey}, {self(), ?WSKey, <<Login/binary, " entered chat.">>}),
+    gproc:reg({p, l, ?WSKey}),
     {reply, {text, << "Hello, ", Login/binary, "!" >>}, Req, State1};
 websocket_handle({text, Msg}, Req, State) ->
     Login = State#userinfo.login,
-    {reply, {text, << Login/binary, ": ", Msg/binary >>}, Req, State};
+    Msg1 = << Login/binary, ": ", Msg/binary >>,
+    gproc:send({p, l, ?WSKey}, {self(), ?WSKey, Msg1}),
+    {ok, Req, State};
 websocket_handle(_Data, Req, State) ->
     {ok, Req, State}.
 
-websocket_info({timeout, _Ref, Msg}, Req, State) ->
-    %erlang:start_timer(1000, self(), <<"How' you doin'?">>),
-    {reply, {text, Msg}, Req, State};
-websocket_info(_Info, Req, State) ->
-    {ok, Req, State}.
+websocket_info(Info, Req, State) ->
+    case Info of
+        {_PID, ?WSKey, Msg} ->
+            {reply, {text, Msg}, Req, State};
+        _ ->
+            {ok, Req, State, hibernate}
+    end.
 
-websocket_terminate(_Reason, _Req, _State) ->
+websocket_terminate(_Reason, _Req, State) ->
+    Login = State#userinfo.login,
+    gproc:send({p, l, ?WSKey}, {self(), ?WSKey, <<Login/binary, " left chat.">>}),
+    gproc:unreg({p, l, ?WSKey}),
     ok.
