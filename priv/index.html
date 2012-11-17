@@ -18,7 +18,7 @@
 
   <body class="index">
     <script type="text/x-handlebars" data-template-name="login">
-      {{view Ember.TextField valueBinding="login" placeholder="Choose nickname"}}
+      {{view App.LoginFieldView valueBinding="login" placeholder="Choose nickname"}}
       <button {{action doLogin}}>Login to chat</button>
     </script>
 
@@ -28,7 +28,7 @@
           {{text}}
         </div>
       {{/each}}
-      {{view Ember.TextField valueBinding="newMessage" placeholder="Enter message"}}
+      {{view App.MessageFieldView valueBinding="newMessage" placeholder="Enter message"}}
       <button {{action doSend}}>Send</button>
     </script>
 

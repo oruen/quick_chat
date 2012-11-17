@@ -27,6 +27,19 @@
     ChatView: Ember.View.extend({
       templateName: "chat"
     }),
+    LoginFieldView: Ember.TextField.extend({
+      insertNewline: function() {
+        this.get("context.target").send("doLogin");
+      }
+    }),
+    MessageFieldView: Ember.TextField.extend({
+      insertNewline: function() {
+        this.get("context.target").send("doSend");
+      },
+      didInsertElement: function() {
+        this.$()[0].focus();
+      }
+    }),
     Router: Ember.Router.extend({
       enableLogging: true,
       root: Ember.Route.extend({
