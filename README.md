@@ -1,7 +1,7 @@
 # Naive Websocket Chat #
 
 Chat application using Cowboy Erlang server and Ember.js communicating via WebSockets.
-Ember.js code by @Deteam.
+Ember.js app by [@Deteam](https://github.com/deteam).
 
 ## Installation ##
 
