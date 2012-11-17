@@ -1,13 +1,16 @@
 # Naive Websocket Chat #
 
+Chat application using Cowboy Erlang server and Ember.js communicating via WebSockets.
+Ember.js code by @Deteam.
+
 ## Installation ##
 
 - Make sure to have Erlang installed (tested with R15B02)
-- `make deps && make compile`
+- `make deps && make compile` (might need to run 2 times because of buggy ranch compilation order)
 
 ## Usage ##
 
-- `./dev/start`
+- Run server: `./dev/start`
 - Go to `http://localhost:8080/index.html`
 
 ## License: ##
