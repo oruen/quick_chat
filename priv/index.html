@@ -18,8 +18,8 @@
 
   <body class="index">
     <script type="text/x-handlebars" data-template-name="login">
-      {{view Ember.TextField valueBinding="login"}}
-      <button {{action doLogin}}>Войти</button>
+      {{view Ember.TextField valueBinding="login" placeholder="Choose nickname"}}
+      <button {{action doLogin}}>Login to chat</button>
     </script>
 
     <script type="text/x-handlebars" data-template-name="chat">
@@ -28,12 +28,12 @@
           {{text}}
         </div>
       {{/each}}
-      {{view Ember.TextField valueBinding="newMessage"}}
-      <button {{action doSend}}>Отправить</button>
+      {{view Ember.TextField valueBinding="newMessage" placeholder="Enter message"}}
+      <button {{action doSend}}>Send</button>
     </script>
 
     <script type="text/x-handlebars" data-template-name="application">
-      <h2>Чатик имени меня</h2>
+      <h2>My secret chat</h2>
       {{outlet}}
     </script>
   </body>
