@@ -40,7 +40,7 @@
             login = router.get("applicationController.login");
             socket = new WebSocket(App.get("socketUrl"));
             return socket.onopen = function() {
-              socket.send("Hi! I am " + login);
+              socket.send("login:" + login);
               router.set("applicationController.socket", socket);
               return router.transitionTo("chat", context);
             };
