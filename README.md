@@ -6,6 +6,7 @@ Ember.js app by [@Deteam](https://github.com/deteam).
 ## Installation ##
 
 - Make sure to have Erlang installed (tested with R15B02)
+- `git submodule update --init`
 - `make deps && make compile` (might need to run 2 times because of buggy ranch compilation order)
 
 ## Usage ##
