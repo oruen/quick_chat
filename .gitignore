@@ -2,6 +2,5 @@
 .eunit
 deps/*
 ebin/
-dev/*
 rel/
 erl_crash.dump

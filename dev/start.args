@@ -1,0 +1,21 @@
+
+# Start SASL
+-boot start_sasl
+
+# Start main application
+-s quick_chat
+
+# Start 'sync' script, for auto-reloading
+-s sync
+
+# Node name
+-name quick_chat@127.0.0.1
+
+# Cookie name
+-setcookie riak
+
+# Kernel polling
++K true
+
+# 4 async threads
++A 4

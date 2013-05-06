@@ -14,24 +14,22 @@
 %% ~~~~~~~~~~~~~~~~~~~~~
 
 start(_StartType, _StartArgs) ->
-    Dispatch = [
+    Dispatch = cowboy_router:compile([
       {'_', [
-        {['...'], cowboy_static, [
+        {"/ws", quick_chat_ws_handler, []},
+        {"/", cowboy_static, [
+          {directory, {priv_dir, quick_chat, []}},
+          {file, <<"index.html">>},
+          {mimetypes, {fun mimetypes:path_to_mimes/2, default}}
+        ]},
+        {"/[...]", cowboy_static, [
           {directory, {priv_dir, quick_chat, []}},
           {mimetypes, {fun mimetypes:path_to_mimes/2, default}}
         ]}
       ]}
-    ],
-    {ok, _} = cowboy:start_http(http, 100, [{port, 8080}], [
-      {dispatch, Dispatch}
     ]),
-    WsDispatch = [
-      {'_', [
-        {'_', quick_chat_ws_handler, []}
-      ]}
-    ],
-    {ok, _} = cowboy:start_http(quick_chat_websocket, 100, [{port, 10100}], [
-      {dispatch, WsDispatch}
+    {ok, _} = cowboy:start_http(http, 100, [{port, 8080}], [
+      {env, [{dispatch, Dispatch}]}
     ]),
     quick_chat_sup:start_link().
 
